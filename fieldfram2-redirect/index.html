@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fieldfram2 Redirect</title>
+</head>
+<body>
+  <h2>Redirecting…</h2>
+  <p>Processing Jobber code: <span id="code">Loading...</span></p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    document.getElementById('code').innerText = code || 'No code found';
+
+    // Optional redirect to app via deep link
+    if (code) {
+      setTimeout(() => {
+        window.location.href = `fieldframe://oauth2redirect?code=${code}`;
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
