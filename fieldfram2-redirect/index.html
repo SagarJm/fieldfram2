@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Redirecting…</title>
-    <script>
+<head>
+  <title>Redirecting…</title>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
-      const code = params.get("code");
-      document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("code").innerText = code;
-        // Optionally: Send to your app/backend here
-      });
-    </script>
-  </head>
-  <body>
-    <h2>Redirecting…</h2>
-    <p>Processing Jobber code: <span id="code"></span></p>
-  </body>
+      const code   = params.get("code");
+      document.getElementById("code").innerText = code || "No code";
+
+      if (code) {
+        // **THIS** triggers the app to open:
+        window.location.href = `fieldframe://oauth2redirect?code=${code}`;
+      }
+    });
+  </script>
+</head>
+<body>
+  <h2>Redirecting…</h2>
+  <p>Processing Jobber code: <span id="code"></span></p>
+</body>
 </html>
