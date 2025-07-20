@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Redirecting…</title>
+  <meta charset="UTF-8"/>
+  <title>Fieldfram2 Redirect</title>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // 1. Grab the “code” param
       const params = new URLSearchParams(window.location.search);
-      const code   = params.get("code");
-      document.getElementById("code").innerText = code || "No code";
+      const code   = params.get("code") || "";
 
+      // 2. Show it on the page (for debugging)
+      document.getElementById("code").innerText = code;
+
+      // 3. If we have a code, deep‐link back into the app:
       if (code) {
-        // **THIS** triggers the app to open:
-        window.location.href = `fieldframe://oauth2redirect?code=${code}`;
+        // Builds something like: fieldframe://oauth2redirect?code=XYZ123
+        const deepLink = `fieldframe://oauth2redirect?code=${encodeURIComponent(code)}`;
+        window.location.href = deepLink;
       }
     });
   </script>
 </head>
 <body>
   <h2>Redirecting…</h2>
-  <p>Processing Jobber code: <span id="code"></span></p>
+  <p>Processing Jobber code: <code id="code">Loading…</code></p>
+  <p>If nothing happens, make sure your app is installed and supports the <code>fieldframe://</code> scheme.</p>
 </body>
 </html>
